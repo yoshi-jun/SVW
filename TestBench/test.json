@@ -1,0 +1,15 @@
+  {
+  "thread_num" : 2,
+  "beam_flag" : "pencil",
+  "particle" : "geantino",
+  "kine_energy" : 20.0,
+  "beam_direc_x": 0.0,
+  "beam_direc_y": 0.0,
+  "beam_direc_z": 1.0,
+  "dim_x" : 20,
+  "dim_y" : 20,
+  "dim_z" : 30,
+  "rand_seed" : 123456789,
+  "ssd" : 100,
+  "file_name" : "test.csv"
+  }
