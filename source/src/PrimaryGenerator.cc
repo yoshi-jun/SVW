@@ -56,7 +56,7 @@ void PencilbeamGenerator::GeneratePrimaries( G4Event* anEvent )
   auto particle_enegy = reader-> GetParticleEne();
   auto ssd = reader-> GetSSD();
   auto beam_direc = reader-> GetBeamDirec();
-  beam_direc = {1., 0., 0.};
+  beam_direc = {0., 0., 1.};
 
   //Get particle-talbe pointer
   G4ParticleTable* particle_table = G4ParticleTable::GetParticleTable();
@@ -77,8 +77,8 @@ void PencilbeamGenerator::GeneratePrimaries( G4Event* anEvent )
   double pos_z = - (ssd - 35.0) * cm; // 15cm is half of phantom size 
   double time_zero = 0. * s;
 
-  // auto primary_vertex = new G4PrimaryVertex{pos_x, pos_y, pos_z, time_zero};
-  auto primary_vertex = new G4PrimaryVertex{pos_z, pos_x, pos_y, time_zero};
+  auto primary_vertex = new G4PrimaryVertex{pos_x, pos_y, pos_z, time_zero};
+  // auto primary_vertex = new G4PrimaryVertex{pos_z, pos_x, pos_y, time_zero};
   // auto primary_vertex = new G4PrimaryVertex{pos_x, pos_z, pos_y, time_zero};
 
   primary_vertex-> SetPrimary(primary_particle);

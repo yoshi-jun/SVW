@@ -22,6 +22,7 @@ OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ==============================================================================*/
 #include "G4NistManager.hh"
+#include "G4SystemOfUnits.hh"
 #include "G4ThreeVector.hh"
 #include "G4VPhysicalVolume.hh"
 #include "G4VTouchable.hh"
@@ -33,6 +34,7 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------
 SVPhantom::SVPhantom(std::string file_name, int max_z)
 {
+
   for (int i=0; i < max_z; i++) {
     std::string fname = file_name + std::to_string(i) + ".csv";
     
@@ -102,13 +104,18 @@ G4Material* SVPhantom::ComputeMaterial(G4VPhysicalVolume* physvol,
   auto mat = nist_manager->FindOrBuildMaterial(std::to_string(sv_elements_[num]));
 
   std::cout << mat << std::endl; 
+
+  // auto nist_manager = G4NistManager::Instance();
+  // auto mat = nist_manager->FindOrBuildMaterial("G4_WATER");
   return mat;
 }
 
 // --------------------------------------------------------------------------
 int SVPhantom::GetNumberOfMaterials() const
 {
-  return sv_mat_.size();
+  // return sv_mat_.size();
+
+  return 1;
 }
 
 // --------------------------------------------------------------------------
@@ -116,6 +123,10 @@ G4Material* SVPhantom::GetMaterial(int idx) const
 {
   auto nist_manager = G4NistManager::Instance();
   auto mat = nist_manager->FindOrBuildMaterial(std::to_string(sv_elements_[idx]));
+
+  // auto nist_manager = G4NistManager::Instance();
+  // auto mat = nist_manager->FindOrBuildMaterial("G4_WATER");
+
   return mat;  
 }
 
@@ -125,7 +136,8 @@ void SVPhantom::ComputeTransformation(const int idx,
                                     G4VPhysicalVolume* physvol) const
 {
   std::cout << "compute transformation, idx = " << idx << std::endl;
-  double z =  1. * ( -30. / 2. + idx + 1. );
+  double z =  1. * cm * ( -30. / 2. + idx + 0.5 );
+  // double z = (2. * idx +1) * 1./2 - 1./2 * 30;
   auto vec = G4ThreeVector(0., 0., z);
   std::cout << vec << std::endl;
   physvol-> SetTranslation(vec);
